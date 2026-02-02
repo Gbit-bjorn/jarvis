@@ -1,0 +1,178 @@
+/* Jarvis Theme - Reusable Glow Classes */
+
+.glow-sm {
+  box-shadow: var(--glow-sm);
+}
+
+.glow-md {
+  box-shadow: var(--glow-md);
+}
+
+.glow-lg {
+  box-shadow: var(--glow-lg);
+}
+
+.glow-text {
+  text-shadow: var(--glow-text);
+}
+
+.glow-border {
+  border-color: var(--border-glow);
+  box-shadow: var(--glow-md);
+}
+
+.glow-border-hover:hover {
+  border-color: var(--border-glow);
+  box-shadow: var(--glow-md);
+}
+
+/* Panel Styling */
+.jarvis-panel {
+  background-color: rgba(17, 17, 24, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 212, 255, 0.15);
+  border-radius: 8px;
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.jarvis-panel:hover {
+  border-color: rgba(0, 212, 255, 0.4);
+  box-shadow: var(--glow-sm);
+}
+
+.jarvis-panel-corner-accents::before,
+.jarvis-panel-corner-accents::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: var(--border-glow);
+  opacity: 0.4;
+}
+
+.jarvis-panel-corner-accents::before {
+  top: -1px;
+  left: -1px;
+  border-top: 2px solid currentColor;
+  border-left: 2px solid currentColor;
+}
+
+.jarvis-panel-corner-accents::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+}
+
+/* Card Styling */
+.jarvis-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  transition: all 200ms ease;
+}
+
+.jarvis-card:hover {
+  border-color: rgba(0, 212, 255, 0.3);
+  box-shadow: var(--glow-sm);
+  transform: translateY(-1px);
+}
+
+/* Button Styling */
+.jarvis-button {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  padding: 0.5rem 1.5rem;
+  border-radius: 4px;
+  border: 1px solid var(--border-glow);
+  background-color: transparent;
+  color: var(--color-primary);
+  cursor: pointer;
+  transition: all 200ms ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.jarvis-button:hover {
+  background-color: rgba(0, 212, 255, 0.1);
+  box-shadow: var(--glow-md);
+  color: var(--text-primary);
+}
+
+.jarvis-button:active {
+  transform: scale(0.98);
+}
+
+.jarvis-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Input Styling */
+.jarvis-input {
+  font-family: 'JetBrains Mono', monospace;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  border: 1px solid var(--border-subtle);
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  transition: all 200ms ease;
+}
+
+.jarvis-input:focus {
+  border-color: var(--border-glow);
+  box-shadow: var(--glow-sm);
+  outline: none;
+}
+
+.jarvis-input::placeholder {
+  color: var(--text-muted);
+}
+
+/* Status Indicators */
+.status-active {
+  color: var(--color-primary);
+}
+
+.status-success {
+  color: var(--color-success);
+}
+
+.status-warning {
+  color: var(--color-warning);
+}
+
+.status-error {
+  color: var(--color-error);
+}
+
+.status-idle {
+  color: var(--text-muted);
+}
+
+/* Pulse Animation */
+.pulse-active {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Scan Line Effect */
+.scan-line-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.scan-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-primary),
+    transparent
+  );
+  animation: scan-line 3s linear infinite;
+  pointer-events: none;
+}
