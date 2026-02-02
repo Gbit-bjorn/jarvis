@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import AuthSettings from '../components/settings/AuthSettings';
+import AgentSettings from '../components/settings/AgentSettings';
 
 type Tab = 'auth' | 'agents' | 'notifications' | 'about';
 
@@ -49,11 +50,7 @@ export default function Settings() {
       <div className="py-4">
         {activeTab === 'auth' && <AuthSettings />}
 
-        {activeTab === 'agents' && (
-          <div className="text-center py-12 text-text-muted">
-            Agent settings coming in P1-010
-          </div>
-        )}
+        {activeTab === 'agents' && <AgentSettings />}
 
         {activeTab === 'notifications' && (
           <div className="text-center py-12 text-text-muted">

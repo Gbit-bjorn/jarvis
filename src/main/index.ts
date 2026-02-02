@@ -2,6 +2,7 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'path';
 import { initializeDatabase, closeDatabase } from './services/db';
 import { registerAuthIpc } from './ipc/auth.ipc';
+import { registerSettingsIpc } from './ipc/settings.ipc';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
@@ -68,6 +69,7 @@ app.whenReady().then(async () => {
 
   // Register IPC handlers
   registerAuthIpc();
+  registerSettingsIpc();
 
   mainWindow = createWindow();
 

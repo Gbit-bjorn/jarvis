@@ -30,6 +30,10 @@ const jarvisAPI: JarvisAPI = {
       'auth:list-tokens',
       'auth:delete-token',
       'auth:update-token',
+      'settings:get',
+      'settings:get-all',
+      'settings:update',
+      'settings:update-batch',
       'projects:list',
       'projects:get',
       'projects:create',
@@ -39,8 +43,6 @@ const jarvisAPI: JarvisAPI = {
       'agents:get',
       'agents:start',
       'agents:stop',
-      'settings:get',
-      'settings:update',
     ];
 
     if (validChannels.includes(channel)) {
