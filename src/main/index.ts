@@ -1,7 +1,9 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'path';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
+
+let mainWindow: BrowserWindow | null = null;
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
@@ -40,14 +42,31 @@ function createWindow() {
   return mainWindow;
 }
 
+// Window control IPC handlers
+ipcMain.on('window-minimize', () => {
+  mainWindow?.minimize();
+});
+
+ipcMain.on('window-maximize', () => {
+  if (mainWindow?.isMaximized()) {
+    mainWindow.unmaximize();
+  } else {
+    mainWindow?.maximize();
+  }
+});
+
+ipcMain.on('window-close', () => {
+  mainWindow?.close();
+});
+
 // This method will be called when Electron has finished initialization
 app.whenReady().then(() => {
-  createWindow();
+  mainWindow = createWindow();
 
   // On macOS, re-create window when dock icon is clicked and no windows are open
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow();
+      mainWindow = createWindow();
     }
   });
 });
