@@ -25,6 +25,11 @@ const jarvisAPI: JarvisAPI = {
   invoke: (channel: string, ...args: unknown[]) => {
     // Whitelist of allowed channels (to be expanded)
     const validChannels = [
+      'auth:store-token',
+      'auth:get-token',
+      'auth:list-tokens',
+      'auth:delete-token',
+      'auth:update-token',
       'projects:list',
       'projects:get',
       'projects:create',

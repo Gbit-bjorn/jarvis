@@ -1,6 +1,18 @@
-import { GlowPanel } from '../components/hud';
+import { useState } from 'react';
+import AuthSettings from '../components/settings/AuthSettings';
+
+type Tab = 'auth' | 'agents' | 'notifications' | 'about';
 
 export default function Settings() {
+  const [activeTab, setActiveTab] = useState<Tab>('auth');
+
+  const tabs: { id: Tab; label: string }[] = [
+    { id: 'auth', label: 'Authentication' },
+    { id: 'agents', label: 'Agent Settings' },
+    { id: 'notifications', label: 'Notifications' },
+    { id: 'about', label: 'About' },
+  ];
+
   return (
     <div className="p-6 space-y-6">
       <header>
@@ -12,39 +24,60 @@ export default function Settings() {
         </p>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <GlowPanel title="Authentication" className="p-4">
-          <div className="space-y-3">
-            <div>
-              <label className="block text-sm text-text-secondary mb-1">
-                Claude OAuth Token
-              </label>
-              <input
-                type="password"
-                className="jarvis-input w-full"
-                placeholder="Enter token..."
-              />
-            </div>
-            <button className="jarvis-button w-full">Save</button>
-          </div>
-        </GlowPanel>
+      {/* Tab Navigation */}
+      <div className="border-b border-border-subtle flex gap-2">
+        {tabs.map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            className={`
+              px-6 py-3 font-display font-semibold transition-all
+              border-b-2 -mb-px
+              ${
+                activeTab === tab.id
+                  ? 'border-primary text-primary glow-text'
+                  : 'border-transparent text-text-muted hover:text-text-primary'
+              }
+            `}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
 
-        <GlowPanel title="Agent Settings" className="p-4">
-          <div className="space-y-3">
-            <div>
-              <label className="block text-sm text-text-secondary mb-1">
-                Max Parallel Agents: <span className="text-primary">5</span>
-              </label>
-              <input
-                type="range"
-                min="1"
-                max="20"
-                defaultValue="5"
-                className="w-full"
-              />
+      {/* Tab Content */}
+      <div className="py-4">
+        {activeTab === 'auth' && <AuthSettings />}
+
+        {activeTab === 'agents' && (
+          <div className="text-center py-12 text-text-muted">
+            Agent settings coming in P1-010
+          </div>
+        )}
+
+        {activeTab === 'notifications' && (
+          <div className="text-center py-12 text-text-muted">
+            Notification settings coming later
+          </div>
+        )}
+
+        {activeTab === 'about' && (
+          <div className="jarvis-panel p-6 max-w-2xl">
+            <h2 className="text-2xl font-display font-bold text-primary mb-4">
+              JARVIS v1.0.0
+            </h2>
+            <p className="text-text-secondary mb-4">
+              Autonomous Coding Agent Desktop Application
+            </p>
+            <div className="text-sm text-text-muted space-y-1">
+              <p>Built with Electron, React, and TypeScript</p>
+              <p>Powered by Claude AI</p>
+              <p className="mt-4">
+                © 2026 Bjorn | MIT License
+              </p>
             </div>
           </div>
-        </GlowPanel>
+        )}
       </div>
     </div>
   );

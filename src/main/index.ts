@@ -1,6 +1,7 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'path';
 import { initializeDatabase, closeDatabase } from './services/db';
+import { registerAuthIpc } from './ipc/auth.ipc';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
@@ -64,6 +65,9 @@ ipcMain.on('window-close', () => {
 app.whenReady().then(async () => {
   // Initialize database
   await initializeDatabase();
+
+  // Register IPC handlers
+  registerAuthIpc();
 
   mainWindow = createWindow();
 
