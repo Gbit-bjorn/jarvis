@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import AuthSettings from '../components/settings/AuthSettings';
 import AgentSettings from '../components/settings/AgentSettings';
+import EnvironmentScanner from '../components/EnvironmentScanner';
 
 type Tab = 'auth' | 'agents' | 'notifications' | 'about';
 
@@ -59,20 +60,24 @@ export default function Settings() {
         )}
 
         {activeTab === 'about' && (
-          <div className="jarvis-panel p-6 max-w-2xl">
-            <h2 className="text-2xl font-display font-bold text-primary mb-4">
-              JARVIS v1.0.0
-            </h2>
-            <p className="text-text-secondary mb-4">
-              Autonomous Coding Agent Desktop Application
-            </p>
-            <div className="text-sm text-text-muted space-y-1">
-              <p>Built with Electron, React, and TypeScript</p>
-              <p>Powered by Claude AI</p>
-              <p className="mt-4">
-                © 2026 Bjorn | MIT License
+          <div className="space-y-6">
+            <div className="jarvis-panel p-6 max-w-2xl">
+              <h2 className="text-2xl font-display font-bold text-primary mb-4">
+                JARVIS v1.0.0
+              </h2>
+              <p className="text-text-secondary mb-4">
+                Autonomous Coding Agent Desktop Application
               </p>
+              <div className="text-sm text-text-muted space-y-1">
+                <p>Built with Electron, React, and TypeScript</p>
+                <p>Powered by Claude AI</p>
+                <p className="mt-4">
+                  © 2026 Bjorn | MIT License
+                </p>
+              </div>
             </div>
+
+            <EnvironmentScanner />
           </div>
         )}
       </div>

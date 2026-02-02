@@ -9,6 +9,7 @@ import structlog
 from typing import Any, Dict
 import websockets
 from websockets.server import WebSocketServerProtocol
+from core.env_scanner import scan_environment
 
 logger = structlog.get_logger()
 
@@ -36,8 +37,10 @@ async def handle_message(websocket: WebSocketServerProtocol, message: str) -> No
             await websocket.send(json.dumps(response))
 
         elif msg_type == "scan_env":
-            # Environment scanning (P1-012)
-            response = {"type": "scan_env_result", "payload": {"status": "not_implemented"}}
+            # Environment scanning
+            logger.info("scanning_environment")
+            scan_results = await scan_environment()
+            response = {"type": "scan_env_result", "payload": scan_results}
             await websocket.send(json.dumps(response))
 
         elif msg_type == "start_agent":
