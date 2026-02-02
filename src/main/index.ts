@@ -1,5 +1,6 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'path';
+import { initializeDatabase, closeDatabase } from './services/db';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
@@ -60,7 +61,10 @@ ipcMain.on('window-close', () => {
 });
 
 // This method will be called when Electron has finished initialization
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
+  // Initialize database
+  await initializeDatabase();
+
   mainWindow = createWindow();
 
   // On macOS, re-create window when dock icon is clicked and no windows are open
@@ -74,8 +78,14 @@ app.whenReady().then(() => {
 // Quit when all windows are closed (except on macOS)
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
+    closeDatabase();
     app.quit();
   }
+});
+
+// Clean up on quit
+app.on('before-quit', () => {
+  closeDatabase();
 });
 
 // Security: prevent navigation to external URLs
