@@ -1,0 +1,5 @@
+{
+  "version": "1.0",
+  "guardrails": [],
+  "_instructions": "This file is populated automatically by agents when they encounter failures. Each guardrail is a learned rule that prevents repeated mistakes. Format: { trigger: string, instruction: string, added_after_iteration: number, added_by: string, timestamp: string }"
+}
