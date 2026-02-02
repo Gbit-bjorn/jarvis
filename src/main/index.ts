@@ -3,6 +3,7 @@ import path from 'path';
 import { initializeDatabase, closeDatabase } from './services/db';
 import { registerAuthIpc } from './ipc/auth.ipc';
 import { registerSettingsIpc } from './ipc/settings.ipc';
+import { startPythonBackend, stopPythonBackend } from './services/python-bridge';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
@@ -71,6 +72,11 @@ app.whenReady().then(async () => {
   registerAuthIpc();
   registerSettingsIpc();
 
+  // Start Python backend
+  startPythonBackend().catch((err) => {
+    console.error('Failed to start Python backend:', err);
+  });
+
   mainWindow = createWindow();
 
   // On macOS, re-create window when dock icon is clicked and no windows are open
@@ -91,6 +97,7 @@ app.on('window-all-closed', () => {
 
 // Clean up on quit
 app.on('before-quit', () => {
+  stopPythonBackend();
   closeDatabase();
 });
 
