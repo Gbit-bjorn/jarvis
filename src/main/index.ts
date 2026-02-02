@@ -3,6 +3,7 @@ import path from 'path';
 import { initializeDatabase, closeDatabase } from './services/db';
 import { registerAuthIpc } from './ipc/auth.ipc';
 import { registerSettingsIpc } from './ipc/settings.ipc';
+import { registerProjectsIpc } from './ipc/projects.ipc';
 import { startPythonBackend, stopPythonBackend } from './services/python-bridge';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
@@ -71,6 +72,7 @@ app.whenReady().then(async () => {
   // Register IPC handlers
   registerAuthIpc();
   registerSettingsIpc();
+  registerProjectsIpc();
 
   // Start Python backend
   startPythonBackend().catch((err) => {
